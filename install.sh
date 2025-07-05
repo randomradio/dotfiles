@@ -12,6 +12,9 @@ create_symlinks() {
 
     # Other dotfiles
     # Example: ln -sfv "$dotfiles_dir/.gitconfig" "$HOME/.gitconfig"
+    ln -sfv "$dotfiles_dir/tmux/.tmux.conf" "$HOME/.tmux.conf"
+    ln -sfv "$dotfiles_dir/tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
+    ln -sfv "$dotfiles_dir/nvim" "$HOME/.config/nvim"
 }
 
 # Function to run macOS setup
