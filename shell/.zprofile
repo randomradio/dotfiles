@@ -1,7 +1,13 @@
+# source all local binary (uv etc.)
 . "$HOME/.local/bin/env"
+# source local env variables
+. "$HOME/.local/bin/env_var"
 
 # homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# zoxide
+eval "$(zoxide init zsh)"
 
 # direnv
 eval "$(direnv hook zsh)"
@@ -35,21 +41,17 @@ eval "$(atuin init zsh)"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('$HOME/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/Users/randomradio/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "$HOME/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "$HOME/miniforge3/etc/profile.d/conda.sh"
+    if [ -f "/Users/randomradio/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/randomradio/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="$HOME/miniforge3/bin:$PATH"
+        export PATH="/Users/randomradio/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
-
-if [ -f "$HOME/miniforge3/etc/profile.d/mamba.sh" ]; then
-    . "$HOME/miniforge3/etc/profile.d/mamba.sh"
-fi
 # <<< conda initialize <<<
 
 # Aliases
@@ -69,3 +71,4 @@ source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 eval "$(fnm env --use-on-cd --shell zsh)"
 
 source "$HOME/.rye/env"
+export PATH="/opt/homebrew/opt/mysql@8.4/bin:$PATH"
