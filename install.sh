@@ -14,9 +14,15 @@ create_symlinks() {
   # Example: ln -sfv "$dotfiles_dir/.gitconfig" "$HOME/.gitconfig"
   ln -sfv "$dotfiles_dir/tmux/.tmux.conf" "$HOME/.tmux.conf"
   ln -sfv "$dotfiles_dir/tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
-  # make sure tmux config is working
-  tmux source-file ~/.tmux.conf
+  # make sure tmux config is working (only if tmux is available)
+  if command -v tmux >/dev/null 2>&1; then
+    # ensure a server exists before sourcing; ignore errors if not
+    tmux start-server >/dev/null 2>&1 || true
+    tmux source-file "$HOME/.tmux.conf" >/dev/null 2>&1 || true
+  fi
 
+  # ensure XDG config dir exists before linking Neovim config
+  mkdir -p "$HOME/.config"
   ln -sfv "$dotfiles_dir/nvim" "$HOME/.config/nvim"
 }
 

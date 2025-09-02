@@ -8,7 +8,7 @@
 # --- Configuration ---
 # The target volume mount point.
 # IMPORTANT: Change this to your specific volume name.
-VOLUME_BASE_PATH=""
+VOLUME_BASE_PATH="/Volumes/soloman/"
 
 if [ -z "$VOLUME_BASE_PATH" ]; then
   echo "Error: VOLUME_BASE_PATH is not set. Please configure it before running the script."
@@ -130,4 +130,3 @@ esac
 
 echo
 echo "Operation completed successfully."
-

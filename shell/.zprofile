@@ -9,6 +9,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # zoxide
 eval "$(zoxide init zsh)"
 
+# rust cargo
+. "$HOME/.cargo/env"
+
 # direnv
 eval "$(direnv hook zsh)"
 function gignr() { curl -sLw "\n" https://www.toptal.com/developers/gitignore/api/$@ ;}
@@ -70,5 +73,8 @@ source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 # nodejs manager but in rust
 eval "$(fnm env --use-on-cd --shell zsh)"
 
-source "$HOME/.rye/env"
-export PATH="/opt/homebrew/opt/mysql@8.4/bin:$PATH"
+export PATH="/opt/homebrew/opt/mysql@8.4/bin:$HOME/bin:$PATH"
+eval "$(~/.local/bin/mise activate zsh)"
+
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+export PATH="$JAVA_HOME/bin:$PATH"
