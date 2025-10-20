@@ -24,6 +24,14 @@ create_symlinks() {
   # ensure XDG config dir exists before linking Neovim config
   mkdir -p "$HOME/.config"
   ln -sfv "$dotfiles_dir/nvim" "$HOME/.config/nvim"
+
+  # git global ignore file
+  ln -sfv "$dotfiles_dir/gitignore_global" "$HOME/.gitignore_global"
+
+  # ghostty configuration lives under Application Support
+  local ghostty_target="$HOME/Library/Application Support/com.mitchellh.ghostty"
+  mkdir -p "$ghostty_target"
+  ln -sfv "$dotfiles_dir/ghostty/config" "$ghostty_target/config"
 }
 
 # Function to run macOS setup
