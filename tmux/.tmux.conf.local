@@ -361,7 +361,7 @@ tmux_conf_theme_clock_style="24"
 #   - false (default)
 #   - disabled
 # on Linux, this requires xsel, xclip or wl-copy
-tmux_conf_copy_to_os_clipboard=false
+tmux_conf_copy_to_os_clipboard=true
 
 
 # -- urlscan -------------------------------------------------------------------
@@ -513,6 +513,36 @@ set -g @plugin 'tmux-plugins/tmux-yank'
 # set -g @plugin 'github_username/plugin_name#branch'
 # set -g @plugin 'git@github.com:user/plugin'
 # set -g @plugin 'git@bitbucket.com:user/plugin'
+
+# This is a popup window setup from 
+# https://github.com/ianchesal/dotfiles/blob/e2b7f01fcf74dafc683274522c35c5ef5e8e801b/tmux/tmux.conf#L131
+# POPUP WINDOWS
+# These two shortcuts provide popup windows in tmux. The lowercase version
+# makes a popup that named uniquely to the working directory. This is great
+# for making a popup window in a coding project.
+#
+# The uppercase version makes a "global" popup window. Great for persisting
+# things globally for a long period of time.
+bind g run-shell '\
+    POPUP_NAME="popup-$(basename "#{pane_current_path}" | tr -cd "a-zA-Z0-9-")"; \
+    if [ "#{session_name}" = "$POPUP_NAME" ]; then \
+        tmux detach-client; \
+    else \
+        tmux display-popup -d "#{pane_current_path}" -xC -yC -w 80% -h 75% -E "tmux attach-session -t $POPUP_NAME || tmux new-session -s $POPUP_NAME"; \
+    fi \
+'
+
+bind G run-shell '\
+    POPUP_NAME="popup-global"; \
+    if [ "#{session_name}" = "$POPUP_NAME" ]; then \
+        tmux detach-client; \
+    else \
+        tmux display-popup -xC -yC -w 80% -h 75% -E "tmux attach-session -t $POPUP_NAME || tmux new-session -s $POPUP_NAME"; \
+    fi \
+'
+
+# This needs to be last always
+run '~/.config/tmux/plugins/tpm/tpm'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 if "test -d ~/.tmux/plugins/tpm" "run '~/.tmux/plugins/tpm/tpm'"
