@@ -60,6 +60,7 @@ unset __conda_setup
 # Aliases
 alias vim=nvim
 alias cs=cursor
+alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"'
 
 # for go people
 export GOROOT=/usr/local/go
@@ -78,3 +79,5 @@ eval "$(~/.local/bin/mise activate zsh)"
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 export PATH="$JAVA_HOME/bin:$PATH"
+export GITHUB_PERSONAL_ACCESS_TOKEN=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
+export KUBECONFIG=~/.kube/config:~/.kube/config-dev-ctl:~/.kube/config-dev-unit:~/.kube/config-qa-ctl:~/.kube/config-qa-unit

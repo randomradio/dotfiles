@@ -1,0 +1,14 @@
+# macOS-specific git configuration for opendiff (FileMerge)
+
+[diff]
+    tool = opendiff
+
+[difftool "opendiff"]
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+
+[merge]
+    tool = opendiff
+
+[mergetool "opendiff"]
+    cmd = opendiff \"$LOCAL\" \"$REMOTE\" -merge \"$BASE\" \"$MERGED\"
+    trustExitCode = true

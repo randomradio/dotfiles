@@ -2,7 +2,7 @@
 
 # Function to create symlinks
 create_symlinks() {
-  local dotfiles_dir="$HOME/dotfiles"
+  local dotfiles_dir="$HOME/.dotfiles"
   local shell_dir="$dotfiles_dir/shell"
 
   # Zsh files
@@ -12,6 +12,7 @@ create_symlinks() {
 
   # Other dotfiles
   # Example: ln -sfv "$dotfiles_dir/.gitconfig" "$HOME/.gitconfig"
+  ln -sfv "$dotfiles_dir/.gitconfig.macos" "$HOME/.gitconfig.macos"
   ln -sfv "$dotfiles_dir/tmux/.tmux.conf" "$HOME/.tmux.conf"
   ln -sfv "$dotfiles_dir/tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
   # make sure tmux config is working (only if tmux is available)
@@ -32,6 +33,9 @@ create_symlinks() {
   local ghostty_target="$HOME/Library/Application Support/com.mitchellh.ghostty"
   mkdir -p "$ghostty_target"
   ln -sfv "$dotfiles_dir/ghostty/config" "$ghostty_target/config"
+
+  # yazi config
+  ln -sfv "$dotfiles_dir/yazi" "$HOME/.config/yazi"
 }
 
 # Function to run macOS setup

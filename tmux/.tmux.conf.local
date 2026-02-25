@@ -546,3 +546,54 @@ run '~/.config/tmux/plugins/tpm/tpm'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 if "test -d ~/.tmux/plugins/tpm" "run '~/.tmux/plugins/tpm/tpm'"
+
+
+# yazi image preview
+set -g allow-passthrough on
+set -ga update-environment TERM
+set -ga update-environment TERM_PROGRAM
+
+
+# -- vim-style navigation (from spicycode gist) -------------------------------
+
+# Pane navigation with vim keys (h/j/k/l) - require prefix
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Pane navigation with Alt-vim keys - NO prefix required
+bind -n M-h select-pane -L
+bind -n M-j select-pane -D
+bind -n M-k select-pane -U
+bind -n M-l select-pane -R
+
+# Pane navigation with Alt-arrow keys - NO prefix required
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+
+# Window switching with Shift-arrow - NO prefix required
+bind -n S-Left previous-window
+bind -n S-Right next-window
+
+# Alternative split bindings (vim-style: v=horizontal, s=vertical)
+# Note: these supplement your existing = and - bindings
+bind v split-window -h -c "#{pane_current_path}"
+bind s split-window -v -c "#{pane_current_path}"
+
+# Pane resizing with capital vim keys
+bind J resize-pane -D 5
+bind K resize-pane -U 5
+bind H resize-pane -L 5
+bind L resize-pane -R 5
+
+# Pane resizing with Meta+vim keys
+bind M-j resize-pane -D
+bind M-k resize-pane -U
+bind M-h resize-pane -L
+bind M-l resize-pane -R
+
+# No delay for escape key press (better for vim)
+set -sg escape-time 0

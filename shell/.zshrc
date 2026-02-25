@@ -96,4 +96,5 @@ export TERM=xterm-256color
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 
-
+# singboxer
+export PATH="$HOME/.config/singboxer/bin:$PATH"
