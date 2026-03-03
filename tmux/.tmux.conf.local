@@ -374,6 +374,16 @@ tmux_conf_urlscan_options="--compact --dedupe"
 
 # this is the place to override or undo settings
 
+# -- fix terminal & key handling for editors over SSH --------------------------
+
+# Use tmux-256color instead of xterm-256color (fixes key sequences in vim etc.)
+set -g default-terminal "tmux-256color"
+
+# Tell tmux the outer terminal supports true color and extended keys
+set -sa terminal-overrides ",xterm*:Tc"
+set -s extended-keys on
+set -sa terminal-features 'xterm*:extkeys'
+
 # increase history size
 set -g history-limit 20000
 
@@ -562,11 +572,12 @@ bind j select-pane -D
 bind k select-pane -U
 bind l select-pane -R
 
-# Pane navigation with Alt-vim keys - NO prefix required
-bind -n M-h select-pane -L
-bind -n M-j select-pane -D
-bind -n M-k select-pane -U
-bind -n M-l select-pane -R
+# Pane navigation with Alt-vim keys - DISABLED to avoid stealing keys from editors
+# Use prefix + h/j/k/l or Alt-arrow keys instead
+# bind -n M-h select-pane -L
+# bind -n M-j select-pane -D
+# bind -n M-k select-pane -U
+# bind -n M-l select-pane -R
 
 # Pane navigation with Alt-arrow keys - NO prefix required
 bind -n M-Left select-pane -L
