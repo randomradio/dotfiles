@@ -379,10 +379,11 @@ tmux_conf_urlscan_options="--compact --dedupe"
 # Use tmux-256color instead of xterm-256color (fixes key sequences in vim etc.)
 set -g default-terminal "tmux-256color"
 
-# Tell tmux the outer terminal supports true color and extended keys
+# Tell tmux the outer terminal supports true color.
+# Keep extkeys off: xterm modifyOtherKeys/extkeys is known to break
+# editor input over some SSH + tmux + terminal combinations.
 set -sa terminal-overrides ",xterm*:Tc"
-set -s extended-keys on
-set -sa terminal-features 'xterm*:extkeys'
+set -s extended-keys off
 
 # increase history size
 set -g history-limit 20000
