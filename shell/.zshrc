@@ -98,3 +98,7 @@ export TERM=xterm-256color
 
 # singboxer
 export PATH="$HOME/.config/singboxer/bin:$PATH"
+
+# Added by OpenClaw installer
+export PATH="/Users/randomradio/.local/share/fnm/node-versions/v22.17.0/installation/bin:$PATH"
+

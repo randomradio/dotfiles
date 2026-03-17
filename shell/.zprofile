@@ -81,3 +81,5 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 17)
 export PATH="$JAVA_HOME/bin:$PATH"
 export GITHUB_PERSONAL_ACCESS_TOKEN=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
 export KUBECONFIG=~/.kube/config:~/.kube/config-dev-ctl:~/.kube/config-dev-unit:~/.kube/config-qa-ctl:~/.kube/config-qa-unit
+
+unset ANTHROPIC_AUTH_TOKEN

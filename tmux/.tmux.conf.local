@@ -431,6 +431,16 @@ tmux_conf_theme_status_right_bg="default,default,default"
 tmux_conf_theme_status_right_attr="none,none,bold"
 tmux_conf_theme_clock_colour="colour4"
 
+# Enforce terminal-driven colors for pane/window content while keeping tmux UI
+# accents (statusline, borders, messages) controlled by tmux theme settings.
+# The #!important suffix makes Oh My Tmux re-apply these after its own theming.
+set -g window-style "fg=default,bg=default" #!important
+set -g window-active-style "fg=default,bg=default" #!important
+set -g popup-style "fg=default,bg=default" #!important
+set -g popup-border-style "fg=colour4,bg=default" #!important
+set -g menu-style "fg=default,bg=default" #!important
+set -g menu-selected-style "fg=default,bg=colour4" #!important
+
 # -- fix terminal & key handling for editors over SSH --------------------------
 
 # Use tmux-256color instead of xterm-256color (fixes key sequences in vim etc.)
@@ -476,7 +486,7 @@ set -g status-position top
 # Nested tmux passthrough: send remote C-b
 # Press C-] (no prefix) to emit a literal C-b to the
 # underlying SSH'd tmux, avoiding conflicts with C-b and C-q
-bind -n C-] send-keys C-q
+bind -n C-] send-keys C-b
 
 # Make 'prefix r' reload config using built-in commands
 # This avoids calling an external 'tmux' and fixes 'unknown command: tmux'
@@ -572,7 +582,6 @@ bind - split-window -h
 
 
 # List of plugins
-set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 set -g @plugin 'tmux-plugins/tmux-yank'
 
@@ -609,13 +618,6 @@ bind G run-shell '\
     fi \
 '
 
-# This needs to be last always
-run '~/.config/tmux/plugins/tpm/tpm'
-
-# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-if "test -d ~/.tmux/plugins/tpm" "run '~/.tmux/plugins/tpm/tpm'"
-
-
 # yazi image preview
 set -g allow-passthrough on
 set -ga update-environment TERM
@@ -625,10 +627,10 @@ set -ga update-environment TERM_PROGRAM
 # -- vim-style navigation (from spicycode gist) -------------------------------
 
 # Pane navigation with vim keys (h/j/k/l) - require prefix
-bind h select-pane -L
-bind j select-pane -D
-bind k select-pane -U
-bind l select-pane -R
+bind -r h select-pane -L
+bind -r j select-pane -D
+bind -r k select-pane -U
+bind -r l select-pane -R
 
 # Pane navigation with Alt-vim keys - DISABLED to avoid stealing keys from editors
 # Use prefix + h/j/k/l or Alt-arrow keys instead
@@ -653,16 +655,16 @@ bind v split-window -h -c "#{pane_current_path}"
 bind s split-window -v -c "#{pane_current_path}"
 
 # Pane resizing with capital vim keys
-bind J resize-pane -D 5
-bind K resize-pane -U 5
-bind H resize-pane -L 5
-bind L resize-pane -R 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r H resize-pane -L 5
+bind -r L resize-pane -R 5
 
 # Pane resizing with Meta+vim keys
-bind M-j resize-pane -D
-bind M-k resize-pane -U
-bind M-h resize-pane -L
-bind M-l resize-pane -R
+bind -r M-j resize-pane -D
+bind -r M-k resize-pane -U
+bind -r M-h resize-pane -L
+bind -r M-l resize-pane -R
 
 # No delay for escape key press (better for vim)
 set -sg escape-time 0
