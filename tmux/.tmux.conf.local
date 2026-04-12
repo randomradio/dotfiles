@@ -488,10 +488,11 @@ set -g status-position top
 # underlying SSH'd tmux, avoiding conflicts with C-b and C-q
 bind -n C-] send-keys C-b
 
-# Make 'prefix r' reload config using built-in commands
-# This avoids calling an external 'tmux' and fixes 'unknown command: tmux'
+# Make 'prefix r' reload the main config with built-in commands.
+# The base config already sources TMUX_CONF_LOCAL, so reloading it directly here
+# is redundant and can surface plugin init failures twice.
 unbind r
-bind r source-file "$TMUX_CONF" \; source-file "$TMUX_CONF_LOCAL" \; display-message "configuration reloaded"
+bind r source-file "$TMUX_CONF" \; display-message "configuration reloaded"
 
 
 # -- tpm -----------------------------------------------------------------------
