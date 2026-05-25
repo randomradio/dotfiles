@@ -91,8 +91,10 @@ zinit light-mode for \
 ### End of Zinit's installer chunk
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-export TERM=xterm-256color
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+# Let the outer terminal or tmux set TERM.
+# Overriding it here breaks apps running inside tmux, which expect
+TERM=tmux-256color
 
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
 
@@ -102,3 +104,5 @@ export PATH="$HOME/.config/singboxer/bin:$PATH"
 # Added by OpenClaw installer
 export PATH="/Users/randomradio/.local/share/fnm/node-versions/v22.17.0/installation/bin:$PATH"
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

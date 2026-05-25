@@ -21,6 +21,8 @@
 # # separated by equals signs.
 font-family = menlo
 window-padding-x = 3
+# SSH config
+shell-integration-features = ssh-env,ssh-terminfo
 #
 # # Spacing around the equals sign does not matter.
 # # All of these are identical:
@@ -42,9 +44,8 @@ window-padding-x = 3
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 # 
-theme = Gruvbox Light
-# theme = Catppuccin Frappe
-# theme = Builtin Dark
-# term = tmux-256color
-# theme = iterm2-solarized-dark
-
+background-opacity=1
+theme = Nord Light
+# Let Ghostty advertise its native terminal type.
+# tmux should set tmux-256color for apps running inside tmux.
+# Advertising tmux-256color here causes tmux+nvim key handling issues.

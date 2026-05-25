@@ -35,9 +35,6 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# starship command
-eval "$(starship init zsh)"
-
 . "$HOME/.atuin/bin/env"
 
 eval "$(atuin init zsh)"
@@ -57,9 +54,10 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
 # Aliases
 alias vim=nvim
-alias cs=cursor
+alias typora="open -a typora"
 alias dps='docker ps --format "table {{.ID}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"'
 
 # for go people
@@ -83,3 +81,5 @@ export GITHUB_PERSONAL_ACCESS_TOKEN=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
 export KUBECONFIG=~/.kube/config:~/.kube/config-dev-ctl:~/.kube/config-dev-unit:~/.kube/config-qa-ctl:~/.kube/config-qa-unit
 
 unset ANTHROPIC_AUTH_TOKEN
+
+export WORKTREE_ROOT="./.worktree"
