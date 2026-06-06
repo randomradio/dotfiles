@@ -102,7 +102,11 @@ TERM=tmux-256color
 export PATH="$HOME/.config/singboxer/bin:$PATH"
 
 # Added by OpenClaw installer
-export PATH="/Users/randomradio/.local/share/fnm/node-versions/v22.17.0/installation/bin:$PATH"
+# Disabled: Node is managed by mise.
+# export PATH="/Users/randomradio/.local/share/fnm/node-versions/v22.17.0/installation/bin:$PATH"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Manage tool versions with mise.
+command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"

@@ -645,14 +645,6 @@ bind G run-shell '\
     fi \
 '
 
-# yazi image preview
-set -g allow-passthrough on
-# Preserve tmux's default environment sync list and add the terminal identity
-# vars Yazi uses to detect passthrough-capable terminals over SSH.
-set -ga update-environment TERM
-set -ga update-environment TERM_PROGRAM
-
-
 # -- vim-style navigation (from spicycode gist) -------------------------------
 
 # Pane navigation with vim keys (h/j/k/l) - require prefix
