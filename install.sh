@@ -39,6 +39,8 @@ link_file "$repo_dir/tmux/.tmux.conf.local" "$HOME/.tmux.conf.local"
 link_file "$repo_dir/nvim" "$HOME/.config/nvim"
 link_file "$repo_dir/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
 link_file "$repo_dir/gitignore_global" "$HOME/.gitignore_global"
+link_file "$repo_dir/agents/AGENTS.md" "$HOME/.codex/AGENTS.md"
+link_file "$repo_dir/agents/AGENTS.md" "$HOME/.claude/CLAUDE.md"
 
 git config --global core.excludesfile "$HOME/.gitignore_global"
 

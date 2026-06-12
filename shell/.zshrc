@@ -110,3 +110,11 @@ export PATH="$HOME/.config/singboxer/bin:$PATH"
 
 # Manage tool versions with mise.
 command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"
+
+# pnpm
+export PNPM_HOME="/Users/randomradio/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end

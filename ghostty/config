@@ -45,7 +45,7 @@ shell-integration-features = ssh-env,ssh-terminfo
 # resize-overlay-duration = 4s 200ms
 # 
 background-opacity=1
-theme = Nord Light
+theme = Xcode Light
 # Let Ghostty advertise its native terminal type.
 # tmux should set tmux-256color for apps running inside tmux.
 # Advertising tmux-256color here causes tmux+nvim key handling issues.
