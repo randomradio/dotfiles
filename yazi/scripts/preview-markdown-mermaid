@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source_path="${1:-}"
+
+if [ -z "$source_path" ] || [ ! -f "$source_path" ]; then
+  printf 'No Markdown file selected.\n' >&2
+  exit 1
+fi
+
+case "$source_path" in
+  *.md|*.markdown) ;;
+  *)
+    printf 'Not a Markdown file: %s\n' "$source_path" >&2
+    exit 1
+    ;;
+esac
+
+for command_name in mmdc python3 open; do
+  if ! command -v "$command_name" >/dev/null 2>&1; then
+    printf 'Missing required command: %s\n' "$command_name" >&2
+    exit 1
+  fi
+done
+
+preview_root="${TMPDIR:-/tmp}/yazi-mermaid-preview"
+mkdir -p "$preview_root"
+
+safe_name="$(basename "$source_path" | tr -c '[:alnum:]._- ' '_')"
+work_dir="$(mktemp -d "$preview_root/${safe_name}.XXXXXX")"
+assets_dir="$work_dir/assets"
+rendered_md="$work_dir/preview.md"
+html_path="$work_dir/index.html"
+
+mkdir -p "$assets_dir"
+
+mmdc \
+  --input "$source_path" \
+  --output "$rendered_md" \
+  --artefacts "$assets_dir" \
+  --outputFormat svg \
+  --backgroundColor transparent \
+  --quiet
+
+python3 - "$rendered_md" "$html_path" "$source_path" <<'PY'
+import html
+import json
+import pathlib
+import sys
+
+rendered_md = pathlib.Path(sys.argv[1])
+html_path = pathlib.Path(sys.argv[2])
+source_path = pathlib.Path(sys.argv[3])
+markdown = rendered_md.read_text(encoding="utf-8")
+
+document = f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{html.escape(source_path.name)}</title>
+  <style>
+    :root {{
+      color-scheme: light dark;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }}
+    body {{
+      box-sizing: border-box;
+      margin: 0 auto;
+      max-width: 980px;
+      padding: 40px 32px;
+      line-height: 1.55;
+    }}
+    pre, code {{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }}
+    pre {{
+      overflow-x: auto;
+      padding: 16px;
+      border-radius: 6px;
+      background: color-mix(in srgb, CanvasText 8%, Canvas);
+    }}
+    img {{
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 24px 0;
+    }}
+    blockquote {{
+      margin-left: 0;
+      padding-left: 16px;
+      border-left: 4px solid color-mix(in srgb, CanvasText 25%, Canvas);
+      color: color-mix(in srgb, CanvasText 75%, Canvas);
+    }}
+    table {{
+      border-collapse: collapse;
+      width: 100%;
+    }}
+    th, td {{
+      border: 1px solid color-mix(in srgb, CanvasText 20%, Canvas);
+      padding: 6px 8px;
+    }}
+  </style>
+</head>
+<body>
+  <noscript><pre>{html.escape(markdown)}</pre></noscript>
+  <main id="content"><pre>{html.escape(markdown)}</pre></main>
+  <script type="module">
+    import {{ marked }} from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
+    const markdown = {json.dumps(markdown)};
+    document.getElementById("content").innerHTML = marked.parse(markdown);
+  </script>
+</body>
+</html>
+"""
+
+html_path.write_text(document, encoding="utf-8")
+PY
+
+open "$html_path"
