@@ -1,10 +1,8 @@
-local chrome = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-
 require("mermaid"):setup({
   backend = "mmdc",
   format = "png",
+  glow_timeout = 15,
   read_limit_mb = 8,
-  mmdc_puppeteer_executable_path = chrome,
 })
 
 require("mdv-previewer"):setup({
