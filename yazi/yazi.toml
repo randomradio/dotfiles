@@ -1,0 +1,13 @@
+[plugin]
+prepend_previewers = [
+  { url = "*.md", run = "mermaid" },
+  { url = "*.mmd", run = "mermaid" },
+  { url = "*.mermaid", run = "mermaid" },
+  { url = "*.markdown", run = "mdv-previewer" },
+  { url = "*.txt", run = "mdv-previewer" },
+]
+
+prepend_preloaders = [
+  { url = "*.markdown", run = "mdv-previewer" },
+  { url = "*.txt", run = "mdv-previewer" },
+]

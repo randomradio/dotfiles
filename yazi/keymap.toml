@@ -1,0 +1,14 @@
+[[manager.prepend_keymap]]
+on = "<A-m>"
+run = "plugin mermaid -- toggle-mode"
+desc = "Toggle mermaid preview mode"
+
+[[manager.prepend_keymap]]
+on = "<A-=>"
+run = "plugin mermaid -- zoom-in"
+desc = "Enlarge mermaid preview"
+
+[[manager.prepend_keymap]]
+on = "<A-->"
+run = "plugin mermaid -- zoom-out"
+desc = "Shrink mermaid preview"
