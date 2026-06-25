@@ -29,6 +29,7 @@ local config = {
   image_rows = nil, -- nil = use default step; otherwise an integer step (the zoom_in/out state file overrides this)
   read_limit_mb = 8, -- io.read cap; files bigger than this surface an explicit error
   backend = "auto", -- "auto" | "mermaid.ink" | "mmdc". auto picks mmdc when on PATH, else mermaid.ink
+  mmdc_puppeteer_executable_path = nil, -- optional Chrome path for mermaid-cli/Puppeteer
 }
 
 -- BUNDLE_BEGIN: lib/parser.lua
@@ -351,7 +352,13 @@ local function spawn_mmdc(source, output_path)
   f:write(source)
   f:close()
 
-  local output, err = Command("mmdc")
+  local chrome_path = config.mmdc_puppeteer_executable_path
+  local command = Command("mmdc")
+  if chrome_path and chrome_path ~= "" and file_exists(chrome_path) then
+    command = Command("env"):arg({ "PUPPETEER_EXECUTABLE_PATH=" .. chrome_path, "mmdc" })
+  end
+
+  local output, err = command
     :arg({ "-i", input_path, "-o", output_path, "--quiet" })
     :stderr(Command.PIPED)
     :output()
