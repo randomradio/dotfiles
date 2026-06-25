@@ -38,12 +38,10 @@ bindkey -e
 # Remove path separator from WORDCHARS.
 WORDCHARS=${WORDCHARS//[\/]}
 
-
 # Source .zprofile if it exists
 if [ -f "$HOME/.zprofile" ]; then
     source "$HOME/.zprofile"
 fi
-
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba shell init' !!
@@ -118,3 +116,15 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
 # pnpm end
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"
+
+# >>> otty shell integration >>>
+# Added by Otty — toggle in Settings > Shell > Shell Integration.
+# Inert unless launched by Otty (it sets $OTTY_SHELL_INTEGRATION).
+if [ -n "$OTTY_SHELL_INTEGRATION" ] && [ -r "$OTTY_SHELL_INTEGRATION/otty-integration.zsh" ]; then
+  . "$OTTY_SHELL_INTEGRATION/otty-integration.zsh"
+fi
+# <<< otty shell integration <<<

@@ -54,7 +54,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-
 # Aliases
 alias vim=nvim
 alias typora="open -a typora"
