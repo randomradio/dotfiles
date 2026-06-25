@@ -461,6 +461,11 @@ set -g default-terminal "tmux-256color"
 set -sa terminal-overrides ",xterm*:Tc,alacritty:Tc,screen-256color:Tc"
 set -s extended-keys off
 
+# Let terminal image protocols pass through tmux for Yazi previews.
+set -g allow-passthrough on
+set -ga update-environment TERM
+set -ga update-environment TERM_PROGRAM
+
 # increase history size
 set -g history-limit 20000
 
