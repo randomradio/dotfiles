@@ -40,6 +40,7 @@ link_file "$repo_dir/nvim" "$HOME/.config/nvim"
 link_file "$repo_dir/yazi" "$HOME/.config/yazi"
 link_file "$repo_dir/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"
 link_file "$repo_dir/gitignore_global" "$HOME/.gitignore_global"
+link_file "$repo_dir/herdr/config.toml" "$HOME/.config/herdr/config.toml"
 link_file "$repo_dir/agents/AGENTS.md" "$HOME/.codex/AGENTS.md"
 link_file "$repo_dir/agents/AGENTS.md" "$HOME/.claude/CLAUDE.md"
 

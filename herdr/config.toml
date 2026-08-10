@@ -1,0 +1,33 @@
+onboarding = false
+
+[ui.toast]
+delivery = "terminal"
+
+[ui.sound]
+enabled = true
+
+[experimental]
+pane_history = false
+
+[ui]
+show_agent_labels_on_pane_borders = true
+
+[theme]
+name = "nord"
+auto_switch = false
+
+[keys]
+# Splits: tmux's v/- both open a side-by-side pane (right); s/= both open a
+# stacked pane (below). Mirrors dotfiles/tmux/.tmux.conf.local.
+split_vertical = ["prefix+v", "prefix+minus"]
+split_horizontal = ["prefix+s", "prefix+="]
+
+# Pane focus: keep default prefix+hjkl, add tmux's no-prefix Alt-arrow keys.
+focus_pane_left = ["prefix+h", "alt+left"]
+focus_pane_down = ["prefix+j", "alt+down"]
+focus_pane_up = ["prefix+k", "alt+up"]
+focus_pane_right = ["prefix+l", "alt+right"]
+
+# Tabs: keep default prefix+p/n, add tmux's no-prefix Shift-arrow keys.
+previous_tab = ["prefix+p", "shift+left"]
+next_tab = ["prefix+n", "shift+right"]
