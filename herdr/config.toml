@@ -17,6 +17,7 @@ name = "nord"
 auto_switch = false
 
 [keys]
+prefix = "ctrl+q"
 # Splits: tmux's v/- both open a side-by-side pane (right); s/= both open a
 # stacked pane (below). Mirrors dotfiles/tmux/.tmux.conf.local.
 split_vertical = ["prefix+v", "prefix+minus"]
