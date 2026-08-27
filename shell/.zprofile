@@ -81,6 +81,5 @@ fi
 unset JAVA_HOME_17
 export KUBECONFIG=~/.kube/config:~/.kube/config-dev-ctl:~/.kube/config-dev-unit:~/.kube/config-qa-ctl:~/.kube/config-qa-unit
 
-unset ANTHROPIC_AUTH_TOKEN
-
 export WORKTREE_ROOT="./.worktree"
+

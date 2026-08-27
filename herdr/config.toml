@@ -12,10 +12,6 @@ pane_history = false
 [ui]
 show_agent_labels_on_pane_borders = true
 
-[theme]
-name = "nord"
-auto_switch = false
-
 [keys]
 prefix = "ctrl+q"
 # Splits: tmux's v/- both open a side-by-side pane (right); s/= both open a

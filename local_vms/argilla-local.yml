@@ -1,0 +1,91 @@
+name: argilla-local
+
+x-argilla-environment: &argilla-environment
+  ARGILLA_HOME_PATH: /var/lib/argilla
+  ARGILLA_DATABASE_URL: postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:-argilla-local-db}@postgres:5432/argilla
+  ARGILLA_ELASTICSEARCH: http://elasticsearch:9200
+  ARGILLA_REDIS_URL: redis://redis:6379/0
+  ARGILLA_AUTH_SECRET_KEY: ${ARGILLA_AUTH_SECRET_KEY:-local-only-change-this-auth-secret}
+
+services:
+  argilla:
+    image: argilla/argilla-server:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6900:6900"
+    environment:
+      <<: *argilla-environment
+      USERNAME: ${ARGILLA_USERNAME:-argilla}
+      PASSWORD: ${ARGILLA_PASSWORD:-argilla-local}
+      API_KEY: ${ARGILLA_API_KEY:-argilla.apikey}
+      WORKSPACE: ${ARGILLA_WORKSPACE:-default}
+    volumes:
+      - argilladata:/var/lib/argilla
+    depends_on:
+      - postgres
+      - elasticsearch
+      - redis
+    networks:
+      - argilla
+
+  worker:
+    image: argilla/argilla-server:latest
+    restart: unless-stopped
+    command: sh -c 'python -m argilla_server worker --num-workers $${BACKGROUND_NUM_WORKERS}'
+    environment:
+      <<: *argilla-environment
+      BACKGROUND_NUM_WORKERS: 2
+    depends_on:
+      - postgres
+      - elasticsearch
+      - redis
+    networks:
+      - argilla
+
+  postgres:
+    image: postgres:14
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-argilla-local-db}
+      POSTGRES_DB: argilla
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+    networks:
+      - argilla
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.0
+    restart: unless-stopped
+    environment:
+      ES_JAVA_OPTS: -Xms512m -Xmx512m -XX:UseSVE=0
+      CLI_JAVA_OPTS: -XX:UseSVE=0
+      node.name: elasticsearch
+      cluster.name: es-argilla-local
+      discovery.type: single-node
+      cluster.routing.allocation.disk.threshold_enabled: "false"
+      xpack.security.enabled: "false"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticdata:/usr/share/elasticsearch/data
+    networks:
+      - argilla
+
+  redis:
+    image: redis:7
+    restart: unless-stopped
+    networks:
+      - argilla
+
+networks:
+  argilla:
+    driver: bridge
+
+volumes:
+  argilladata:
+  postgresdata:
+  elasticdata:
+

@@ -124,19 +124,13 @@ eval "$(atuin init zsh)"
 
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 
-# env vars
-export ALPHAXIV_API_KEY=axv2_RrXsvZCotjQtGWSunzLqTBVcKtmASFRvtSEqBPGpLlPVXJewtUjjkAdVBvymBbYL
 
-
-# >>> grok installer >>>
-export PATH="$HOME/.grok/bin:$PATH"
-fpath=(~/.grok/completions/zsh $fpath)
-autoload -Uz compinit && compinit -C
-# <<< grok installer <<<
-
-# Cursor Agent owns `agent`. Grok also installs ~/.grok/bin/agent.
-# Keep Cursor first; start Grok with `grok`.
-export PATH="$HOME/.local/bin:$PATH"
+# >>> Hermes Studio CLI shim >>>
+case ":$PATH:" in
+  *":$HOME/bin:"*) ;;
+  *) export PATH="$HOME/bin:$PATH" ;;
+esac
+# <<< Hermes Studio CLI shim <<<
 
 # >>> otty shell integration >>>
 # Added by Otty — toggle in Settings > Shell > Shell Integration.
